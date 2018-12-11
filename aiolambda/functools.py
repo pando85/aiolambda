@@ -1,7 +1,7 @@
 from inspect import iscoroutinefunction
 from typing import Any, Callable, TypeVar
 
-from aiolambda.typing import Maybe, Error
+from aiolambda.typing import Maybe, CheckError
 
 T = TypeVar('T')
 
@@ -25,6 +25,6 @@ def compose(*funcs: Any) -> Callable:
 
 
 def bind(f: Callable, x: Maybe[T]) -> Any:
-    if isinstance(x, Error):
+    if isinstance(x, CheckError):
         return x
     return f(x)

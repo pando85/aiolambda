@@ -1,10 +1,11 @@
-from aiohttp.web import json_response, Request, Response, RouteTableDef
+from aiohttp.web import Request, Response, RouteTableDef
 
 from aiolambda import logger
 from aiolambda.functools import compose
-from aiolambda.typing import Maybe, Error, Success
+from aiolambda.response import return_200, return_201
 
 from example.db import create_user
+from example.user import to_dict
 from example.token import create_token
 from example.verify import check_password
 
@@ -18,7 +19,7 @@ async def auth_handler(request: Request) -> Response:
         logger.debug,
         create_token,
         logger.debug,
-        return_response
+        return_201
     )(request)
 
 
@@ -26,11 +27,13 @@ async def auth_handler(request: Request) -> Response:
 async def create_user_handler(request: Request) -> Response:
     return await compose(
         create_user,
-        return_response
+        to_dict,
+        return_201
     )(request)
 
 
-def return_response(r: Maybe[Success]) -> Response:
-    if isinstance(r, Error):
-        return json_response(r.msg, status=r.status_code)
-    return json_response(r.json, status=r.status_code)
+@routes.get('/ping')
+async def ping_handler(request: Request) -> Response:
+    return compose(
+        logger.debug,
+        return_200)('pong')

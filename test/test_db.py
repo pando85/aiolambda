@@ -4,7 +4,6 @@ import pytest
 
 from aiolambda.config import (POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB, POSTGRES_USER,
                               POSTGRES_PASSWORD)
-from aiolambda.typing import Error
 
 from example.db import USERS_TABLE_NAME, init_db, _create_user, _get_user
 from example.user import User
@@ -40,10 +39,10 @@ async def test_create_user(pool: asyncpg.pool.Pool):
 async def test_get_user(pool: asyncpg.pool.Pool):
     test_user = User('admin', 'admin')
     async with pool.acquire() as connection:
-        user = await _get_user(connection, test_user.username)
-    if isinstance(user, Error):
-        assert "User does not exists" == "Avoid mypy complain about types"
+        user = await _get_user(connection, test_user)
+    # Avoid mypy complain about types
+    if isinstance(user, User):
+        assert test_user.username == user.username
+        is_verified = passlib.hash.pbkdf2_sha256.verify(test_user.password, user.password)
+        assert is_verified is True
         return
-    assert test_user.username == user.username
-    is_verified = passlib.hash.pbkdf2_sha256.verify(test_user.password, user.password)
-    assert is_verified is True

@@ -13,22 +13,22 @@ def cli(loop, aiohttp_client):
     return loop.run_until_complete(aiohttp_client(app))
 
 
-async def test_aiolambda(cli):
+async def test_auth(cli):
     resp = await cli.post('/auth', json={'username': 'admin', 'password': 'admin'})
-    assert resp.status == 200
+    assert resp.status == 201
     assert await resp.json() == {'token': 'TODO'}
 
 
-async def test_aiolambda_incorret_user(cli):
+async def test_auth_incorret_user(cli):
     resp = await cli.post('/auth', json={'username': 'foo', 'password': 'foo'})
     assert resp.status == 422
-    assert await resp.json() == "'user does not exists'"
+    assert await resp.json() == "'Invalid credentials'"
 
 
-async def test_aiolambda_incorret_password(cli):
+async def test_auth_incorret_password(cli):
     resp = await cli.post('/auth', json={'username': 'admin', 'password': 'foo'})
     assert resp.status == 422
-    assert await resp.json() == "'password does not match'"
+    assert await resp.json() == "'Invalid credentials'"
 
 
 async def test_user_add(cli):
@@ -41,5 +41,11 @@ async def test_user_add(cli):
 async def test_user_add_exist_user(cli):
     user = {'username': 'admin', 'password': 'test1234'}
     resp = await cli.post('/user', json=user)
+    assert resp.status == 409
+    assert await resp.json() == "'Already exists user'"
+
+
+async def test_ping(cli):
+    resp = await cli.get('/ping')
     assert resp.status == 200
-    assert await resp.json() == user
+    assert await resp.json() == ''
