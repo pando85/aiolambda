@@ -1,10 +1,6 @@
 import os
 
 
-ADMIN_USER: str = os.environ.get('ADMIN_USER', 'admin')
-ADMIN_PASSWORD: str = os.environ.get('ADMIN_PASSWORD', 'admin')
-
-
 LOG_LEVEL: str = os.environ.get('LOG_LEVEL', 'INFO')
 
 POSTGRES_HOST: str = os.environ.get('POSTGRES_HOST', 'localhost')
