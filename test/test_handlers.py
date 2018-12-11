@@ -22,13 +22,13 @@ async def test_auth(cli):
 async def test_auth_incorret_user(cli):
     resp = await cli.post('/auth', json={'username': 'foo', 'password': 'foo'})
     assert resp.status == 422
-    assert await resp.json() == "'Invalid credentials'"
+    assert await resp.json() == 'Invalid credentials'
 
 
 async def test_auth_incorret_password(cli):
     resp = await cli.post('/auth', json={'username': 'admin', 'password': 'foo'})
     assert resp.status == 422
-    assert await resp.json() == "'Invalid credentials'"
+    assert await resp.json() == 'Invalid credentials'
 
 
 async def test_user_add(cli):
@@ -42,7 +42,7 @@ async def test_user_add_exist_user(cli):
     user = {'username': 'admin', 'password': 'test1234'}
     resp = await cli.post('/user', json=user)
     assert resp.status == 409
-    assert await resp.json() == "'Already exists user'"
+    assert await resp.json() == 'User already exists'
 
 
 async def test_ping(cli):

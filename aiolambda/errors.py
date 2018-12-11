@@ -1,8 +1,8 @@
 
 
-class ObjectAlreadyExists():
+class ObjectAlreadyExists(Exception):
     pass
 
 
-class ObjectNotFound():
+class ObjectNotFound(Exception):
     pass

@@ -1,4 +1,4 @@
 
 
-class InvalidPassword():
+class InvalidPassword(Exception):
     pass

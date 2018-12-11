@@ -8,9 +8,9 @@ from typing import Callable
 from aiolambda import logger
 from aiolambda.db import _check_table_exists
 from aiolambda.errors import ObjectAlreadyExists, ObjectNotFound
+from aiolambda.typing import Maybe
 
 from example.config import ADMIN_USER, ADMIN_PASSWORD
-from example.typing import CheckError, Error, Maybe
 from example.user import User
 
 USERS_TABLE_NAME = 'users'
@@ -66,7 +66,7 @@ async def _operate_user(operation: Callable, request: aiohttp.web.Request) -> Ma
     async with pool.acquire() as connection:
         maybe_user = await operation(connection, user_request)
 
-    if isinstance(maybe_user, CheckError):
+    if isinstance(maybe_user, Exception):
         return maybe_user
     return maybe_user
 
@@ -74,10 +74,3 @@ async def _operate_user(operation: Callable, request: aiohttp.web.Request) -> Ma
 create_user = partial(_operate_user, _create_user)
 get_user = partial(_operate_user, _get_user)
 update_user = partial(_operate_user, _update_user)
-
-
-async def create_or_update_user(request: aiohttp.web.Request) -> Maybe[User]:
-    maybe_user = await create_user(request)
-    if isinstance(maybe_user, CheckError):
-        maybe_user = await update_user(request)
-    return maybe_user

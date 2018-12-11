@@ -1,10 +1,10 @@
 import aiohttp
 import passlib
 
+from aiolambda.typing import Maybe
 
 from example.db import get_user
 from example.errors import InvalidPassword
-from example.typing import Maybe
 from example.user import User
 
 
