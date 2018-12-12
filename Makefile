@@ -1,4 +1,4 @@
-.PHONY: help requirements requirements_test lint test run destroy_db init_db destroy_mq init_mq
+.PHONY: help requirements requirements_test lint test run destroy_db init_db destroy_mq init_mq build
 
 APP := aiolambda
 WORKON_HOME ?= .venv
@@ -70,3 +70,6 @@ init_mq: destroy_mq
 		echo 'Waiting for rabbit...'; \
 		sleep 1; \
 	done;
+
+build:	## build package
+	@${PYTHON} setup.py sdist --formats=gztar,zip
