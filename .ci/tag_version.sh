@@ -2,10 +2,13 @@
 set -e
 
 check_version_changes(){
-    git diff  HEAD^ HEAD -- aiolambda/__init__.py | grep +__version__;
+    git diff  HEAD^ HEAD -- aiolambda/__init__.py | grep --quiet +__version__;
 };
 
-check_version_changes
+if ! check_version_changes; then
+    echo "Not version changed"
+    exit
+fi
 VERSION=$(python -c 'import aiolambda; print(aiolambda.__version__)')
 
 git tag -a $VERSION -m "version $VERSION"
