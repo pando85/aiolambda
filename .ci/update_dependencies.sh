@@ -29,4 +29,6 @@ update_packages
 echo Run unit tests
 make test
 
-update_requirements requirements.txt
+if update_requirements requirements.txt; then
+    echo "Updated requirements"
+fi
