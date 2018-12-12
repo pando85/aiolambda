@@ -50,7 +50,7 @@ jobs:
         provider: pypi
         user: "pando85"
         password:
-          secure: "jHYBRZsz2YoYibOjCO6qw7vJ+FFXhdT1ooRwHQTwOQYBAwgREt/axFHe4YIW9vPm9TU2hDAy3jOEgm+WK/lQANnokGcLHzDKNHZ2HGrCD6GR8Y19JMAKUw+dxR1RcGbwh4qWXECt0kwgCMQJu60XJcnTAYJVbiF0r9ajHkxIrnAUiWl4/zlMsxQqMOWHet/3K5wJQAQAKj4YlRqpz+4xRy8NurbyPbXR99asvPd9w7C1Aq7LJVl+OZ44AhIImg6RzZrakg/r5VHc6ko/xpEAAnJzKtz2L1rMsFDcoCxo8ImW0kVy1o64EsOp9e0DzkcQRr8EBbN6k9rpxUd9YUgl8c41jDmQGwgsZ7bnG3oQxpOkjxVY5amgopLF0t4metbUFlPs7zUuYHEc9OvWxMzu6LrFVj4dfBQdZpMRaAguQ6eL9ONWhJP39314ZLn5Oz9FB40RNpBc1rIWncSvEDVIZv9H4bwt4sxzACbN9HHbgPkJXYvfIhEtjtimMls3oaN731Zebk42+ytRf6C6fnc89vfScQCdHFJXFMfg6vQouY+A+YtIJeJcHa0tM3Y8xjctwzVPK3E/YNuHR30+RlprvB/6bwwssL9gOMf3cCcPGi1/kpAWaCWhlztiVoDKM2VnwbeMS7LwDVwuXoc8gZlZfNHRhzNsNI+5cLrATeTVnyM="        on:
+          secure: "jHYBRZsz2YoYibOjCO6qw7vJ+FFXhdT1ooRwHQTwOQYBAwgREt/axFHe4YIW9vPm9TU2hDAy3jOEgm+WK/lQANnokGcLHzDKNHZ2HGrCD6GR8Y19JMAKUw+dxR1RcGbwh4qWXECt0kwgCMQJu60XJcnTAYJVbiF0r9ajHkxIrnAUiWl4/zlMsxQqMOWHet/3K5wJQAQAKj4YlRqpz+4xRy8NurbyPbXR99asvPd9w7C1Aq7LJVl+OZ44AhIImg6RzZrakg/r5VHc6ko/xpEAAnJzKtz2L1rMsFDcoCxo8ImW0kVy1o64EsOp9e0DzkcQRr8EBbN6k9rpxUd9YUgl8c41jDmQGwgsZ7bnG3oQxpOkjxVY5amgopLF0t4metbUFlPs7zUuYHEc9OvWxMzu6LrFVj4dfBQdZpMRaAguQ6eL9ONWhJP39314ZLn5Oz9FB40RNpBc1rIWncSvEDVIZv9H4bwt4sxzACbN9HHbgPkJXYvfIhEtjtimMls3oaN731Zebk42+ytRf6C6fnc89vfScQCdHFJXFMfg6vQouY+A+YtIJeJcHa0tM3Y8xjctwzVPK3E/YNuHR30+RlprvB/6bwwssL9gOMf3cCcPGi1/kpAWaCWhlztiVoDKM2VnwbeMS7LwDVwuXoc8gZlZfNHRhzNsNI+5cLrATeTVnyM="
         on:
           tags: true
     - stage: "deploy github"
