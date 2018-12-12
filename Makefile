@@ -72,4 +72,5 @@ init_mq: destroy_mq
 	done;
 
 build:	## build package
+build: venv
 	@${PYTHON} setup.py sdist --formats=gztar,zip
