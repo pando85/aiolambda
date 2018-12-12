@@ -26,11 +26,10 @@ matrix:
 jobs:
   include:
     - stage: "update-dependencies"
-      if: branch = master AND type != pull_request
       install:
         - make requirements_test
       script:
-        - bash .ci/update_dependencies.sh
+        - bash -x .ci/update_dependencies.sh
       after_success:
         - git config user.name "tracis-ci"
         - git config user.email "travis-ci@travis-ci.org"
