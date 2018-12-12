@@ -1,5 +1,6 @@
 from setuptools import setup
 
+import aiolambda
 
 with open('requirements.txt') as f:
     requirements = f.read().strip().split('\n')
@@ -15,7 +16,7 @@ def readme():
 
 if __name__ == '__main__':
     setup(name='aiolambda',
-          version='0.1',
+          version=aiolambda.__version__,
           description='Python async microservices fasts!',
           long_description=readme(),
           classifiers=[
