@@ -3,11 +3,11 @@ from aiohttp.web import Request, Response, RouteTableDef
 from aiolambda import logger
 from aiolambda.functools import compose
 
-from example.db import create_user
-from example.user import to_dict
-from example.response import return_200, return_201
-from example.token import create_token
-from example.verify import check_password
+from auth.db import create_user
+from auth.user import to_dict
+from auth.response import return_200, return_201
+from auth.token import create_token
+from auth.verify import check_password
 
 routes = RouteTableDef()
 

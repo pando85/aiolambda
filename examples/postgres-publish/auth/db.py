@@ -10,8 +10,8 @@ from aiolambda.db import _check_table_exists
 from aiolambda.errors import ObjectAlreadyExists, ObjectNotFound
 from aiolambda.typing import Maybe
 
-from example.config import ADMIN_USER, ADMIN_PASSWORD
-from example.user import User
+from auth.config import ADMIN_USER, ADMIN_PASSWORD
+from auth.user import User
 
 USERS_TABLE_NAME = 'users'
 

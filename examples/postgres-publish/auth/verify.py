@@ -3,9 +3,9 @@ import passlib
 
 from aiolambda.typing import Maybe
 
-from example.db import get_user
-from example.errors import InvalidPassword
-from example.user import User
+from auth.db import get_user
+from auth.errors import InvalidPassword
+from auth.user import User
 
 
 async def check_password(request: aiohttp.web.Request) -> Maybe[User]:

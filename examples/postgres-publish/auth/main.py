@@ -3,8 +3,8 @@ import aiohttp.web
 from aiolambda.app import get_app
 from aiolambda.logger import access_logger
 
-from example.db import init_db
-from example.handlers import routes
+from auth.db import init_db
+from auth.handlers import routes
 
 
 def main():

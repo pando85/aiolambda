@@ -1,7 +1,7 @@
 from functools import partial
 from typing import Dict
 
-from example.user import User
+from auth.user import User
 from aiolambda.functools import bind
 
 

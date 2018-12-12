@@ -5,8 +5,8 @@ import pytest
 from aiolambda.config import (POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB, POSTGRES_USER,
                               POSTGRES_PASSWORD)
 
-from example.db import USERS_TABLE_NAME, init_db, _create_user, _get_user
-from example.user import User
+from auth.db import USERS_TABLE_NAME, init_db, _create_user, _get_user
+from auth.user import User
 
 
 @pytest.fixture

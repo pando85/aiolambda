@@ -3,7 +3,7 @@ from aiohttp.web import Response, json_response
 from aiolambda.errors import ObjectAlreadyExists, ObjectNotFound
 from aiolambda.typing import Maybe
 
-from example.errors import InvalidPassword
+from auth.errors import InvalidPassword
 
 
 def return_error(error: Exception) -> Response:
