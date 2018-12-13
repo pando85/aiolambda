@@ -73,4 +73,4 @@ init_mq: destroy_mq
 
 build:	## build package
 build: venv
-	@${PYTHON} setup.py sdist --formats=gztar,zip
+	@${PYTHON} setup.py bdist_wheel
