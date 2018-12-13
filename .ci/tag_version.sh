@@ -9,7 +9,7 @@ if ! check_version_changes; then
     echo "Not version changed"
     exit
 fi
-VERSION=$(grep version aiolambda/__init__.py | cut -d= -f2 | tr -d '[:space:]'| tr -d "'")
+VERSION=$(python -c 'import aiolambda; print(aiolambda.__version__)')
 
 git tag -a $VERSION -m "version $VERSION"
 git push "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" $VERSION

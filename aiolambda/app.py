@@ -1,10 +1,14 @@
 import aiohttp.web
+import asyncio
+import uvloop
 
 from functools import partial
 from typing import Callable, Dict
 
 from aiolambda.db import setup_db_base
 from aiolambda.mq import setup_mq_base
+
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 
 def get_app(init_db: Callable = None,
