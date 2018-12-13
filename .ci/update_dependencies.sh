@@ -1,19 +1,13 @@
 #!/bin/bash
 set -e
 
-if [ -z "${WORKON_HOME}" ]; then
-    PIP=.venv/aiolambda/bin/pip
-else
-    PIP=$WORKON_HOME/aiolambda/bin/pip
-fi
-
 update_packages(){
-    packages=$($PIP list --outdated --local --format=freeze | \
+    packages=$(pip list --outdated --local --format=freeze | \
         grep -v '^\-e' | cut -d = -f 1  )
 
     for package in $(echo $packages);
     do
-        $PIP install -U $package;
+        pip install -U $package;
     done;
 };
 
@@ -24,7 +18,7 @@ update_requirements(){
     for i in $(cat $requirements_file);
     do
         package_name=$(echo $i | cut -d= -f1)
-        $PIP freeze --local | egrep ^${package_name} | grep ${package_name}= >> $temp_file;
+        pip freeze --local | egrep ^${package_name} | grep ${package_name}= >> $temp_file;
     done;
     cp $temp_file $requirements_file;
 };
