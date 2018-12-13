@@ -9,8 +9,9 @@ with open('requirements_test.txt') as f:
     requirements_test = f.read().strip().split('\n')[1:]
 
 
-def readme():
-    with open('README.md') as f:
+def read_file(file_name):
+    """Read file and return its contents."""
+    with open(file_name, 'r') as f:
         return f.read()
 
 
@@ -18,7 +19,8 @@ if __name__ == '__main__':
     setup(name='aiolambda',
           version=aiolambda.__version__,
           description='Python async microservices fasts!',
-          long_description=readme(),
+          long_description=read_file('README.md'),
+          long_description_content_type='text/markdown',
           classifiers=[
             'Development Status :: 3 - Alpha',
             'License :: OSI Approved :: GNU General Public License (GPL)',
