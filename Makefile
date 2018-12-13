@@ -10,11 +10,10 @@ PYTHON := ${VENV_BASE}/bin/python3
 help:
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##/\n\t/'
 
-venv:	## create and activate virtualenv
+venv:	## create virtualenv
 	@if [ ! -d "$(VENV_BASE)" ]; then \
 		virtualenv -p python3 $(VENV_BASE); \
 	fi
-	@source ${VENV_ACTIVATE}
 
 requirements:	## install requirements
 requirements: venv
