@@ -27,7 +27,7 @@ matrix:
 jobs:
   include:
     - stage: "update-dependencies"
-      if: branch = master AND type != pull_request
+      if: tag IS NOT present
       install:
         - make requirements_test
       script:
@@ -47,17 +47,15 @@ jobs:
       env:
         secure: "cMx5gbdwEYJxWgKbq3Q4g9n2kWJCTaCIDRM21/b9ULgQnoU3Yjj2Ce4r/PCEzJIscgfuGRhB6krzl4g9kjvc/JNedeY1rIuJiW1M/MlmIXR8hWUhcuiH6jCj7RK1kwojMStvDBZsbar3cMfMdeBbmQ/TNqHYnHpAsshb1X9u5THkOk3GUnJRkJpMBkU08jELKbSupH6d7fnRTSIiGOIa20lBWMlXB3W1xto1Xvh+vJG0f0+8etjMidLo99nJRQMpieKh4MouvmMOASr17iMlkXxFhjuxUCgoQCqXXqxfW312+LwFkpapu4X2cHWyJbt+7gPW/OlqHGWDddUznlsHKMw06gVABG/oEFmB+PMavulYl+4SGLYdUk/JGTfc+GcCuA/I1qLtCTqcBozPMVQGifTFQFDhG055yH+kGhVRW7sWPNBUp2AwlXAcZuOkt2s8xuTOnB83A7cvzCmQroS74jj5jWPdNPsi4xwTr4jRohgndTEta4JGXUt8XOAA9GozRR868mi3myLgtOfx5VzPvTvr3npmzIv0nXS29ukzN1xghZXL0jijggAsYZ3FrolaiZmEPfeWLdGtfTCB2XZ4qHzv1RB/v2rbhCRU4Q1VB3+Oilq5a5hwyLUZJL4UJlswXkg9JlHHYTXQN/7IyOnb8zOJzoBTSfdaoFrJcIntkCo="
     - stage: "deploy pypi"
-      if: branch = master AND type != pull_request
+      if: type != pull_request AND tag IS present
       script: "make build"
       deploy:
         provider: pypi
         user: "pando85"
         password:
           secure: "jHYBRZsz2YoYibOjCO6qw7vJ+FFXhdT1ooRwHQTwOQYBAwgREt/axFHe4YIW9vPm9TU2hDAy3jOEgm+WK/lQANnokGcLHzDKNHZ2HGrCD6GR8Y19JMAKUw+dxR1RcGbwh4qWXECt0kwgCMQJu60XJcnTAYJVbiF0r9ajHkxIrnAUiWl4/zlMsxQqMOWHet/3K5wJQAQAKj4YlRqpz+4xRy8NurbyPbXR99asvPd9w7C1Aq7LJVl+OZ44AhIImg6RzZrakg/r5VHc6ko/xpEAAnJzKtz2L1rMsFDcoCxo8ImW0kVy1o64EsOp9e0DzkcQRr8EBbN6k9rpxUd9YUgl8c41jDmQGwgsZ7bnG3oQxpOkjxVY5amgopLF0t4metbUFlPs7zUuYHEc9OvWxMzu6LrFVj4dfBQdZpMRaAguQ6eL9ONWhJP39314ZLn5Oz9FB40RNpBc1rIWncSvEDVIZv9H4bwt4sxzACbN9HHbgPkJXYvfIhEtjtimMls3oaN731Zebk42+ytRf6C6fnc89vfScQCdHFJXFMfg6vQouY+A+YtIJeJcHa0tM3Y8xjctwzVPK3E/YNuHR30+RlprvB/6bwwssL9gOMf3cCcPGi1/kpAWaCWhlztiVoDKM2VnwbeMS7LwDVwuXoc8gZlZfNHRhzNsNI+5cLrATeTVnyM="
-        on:
-          tags: true
     - stage: "deploy github"
-      if: branch = master AND type != pull_request
+      if: type != pull_request AND tag IS present
       script: "make build"
       deploy:
         provider: releases
@@ -65,7 +63,5 @@ jobs:
         file_glob: true
         file: dist/*
         skip_cleanup: true
-        on:
-          tags: true
       env:
         secure: "cMx5gbdwEYJxWgKbq3Q4g9n2kWJCTaCIDRM21/b9ULgQnoU3Yjj2Ce4r/PCEzJIscgfuGRhB6krzl4g9kjvc/JNedeY1rIuJiW1M/MlmIXR8hWUhcuiH6jCj7RK1kwojMStvDBZsbar3cMfMdeBbmQ/TNqHYnHpAsshb1X9u5THkOk3GUnJRkJpMBkU08jELKbSupH6d7fnRTSIiGOIa20lBWMlXB3W1xto1Xvh+vJG0f0+8etjMidLo99nJRQMpieKh4MouvmMOASr17iMlkXxFhjuxUCgoQCqXXqxfW312+LwFkpapu4X2cHWyJbt+7gPW/OlqHGWDddUznlsHKMw06gVABG/oEFmB+PMavulYl+4SGLYdUk/JGTfc+GcCuA/I1qLtCTqcBozPMVQGifTFQFDhG055yH+kGhVRW7sWPNBUp2AwlXAcZuOkt2s8xuTOnB83A7cvzCmQroS74jj5jWPdNPsi4xwTr4jRohgndTEta4JGXUt8XOAA9GozRR868mi3myLgtOfx5VzPvTvr3npmzIv0nXS29ukzN1xghZXL0jijggAsYZ3FrolaiZmEPfeWLdGtfTCB2XZ4qHzv1RB/v2rbhCRU4Q1VB3+Oilq5a5hwyLUZJL4UJlswXkg9JlHHYTXQN/7IyOnb8zOJzoBTSfdaoFrJcIntkCo="
