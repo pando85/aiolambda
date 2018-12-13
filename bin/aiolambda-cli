@@ -13,16 +13,29 @@ Options:
 
 import docopt
 
+from typing import Dict
+from pathlib import Path
+
+from aiolambda_cli.templates import render_all
+
+
+def get_vars_dict(arguments: docopt.docopt) -> Dict[str, str]:
+    return {
+        'project_name': arguments['<project-name>'],
+        'database': arguments['--db'],
+        'is_mq': arguments['--mq'],
+        'is_ci': arguments['--ci']
+    }
+
 
 def main():
     arguments = docopt.docopt(__doc__)
 
-    project_name = arguments['<project-name>']
-    print(project_name)
+    if Path(arguments['<project-name>']).exists():
+        print("Project already exists")
+        return
 
-    print(arguments['--db'])
-    print(arguments['--mq'])
-    print(arguments['--ci'])
+    render_all(get_vars_dict(arguments))
 
 
 if __name__ == '__main__':

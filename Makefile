@@ -73,4 +73,14 @@ init_mq: destroy_mq
 
 build:	## build package
 build: venv
-	@${PYTHON} setup.py bdist_wheel
+	@echo Build package
+	@${PYTHON} setup.py bdist_wheel > /dev/null
+
+install:	## install packages
+install: venv
+	@echo Install packages
+	@${PYTHON} setup.py install > /dev/null
+
+template:	## aiolambda-cli execution, user ARGS var to parse ARGS. `make template ARGS="--db init test_template"`
+template: install
+	@./bin/aiolambda-cli ${ARGS}
