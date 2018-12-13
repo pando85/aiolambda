@@ -12,4 +12,4 @@ fi
 VERSION=$(grep version aiolambda/__init__.py | cut -d= -f2 | tr -d '[:space:]'| tr -d "'")
 
 git tag -a $VERSION -m "version $VERSION"
-git push --follow-tags "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" HEAD:$TRAVIS_BRANCH
+git push "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" $VERSION
