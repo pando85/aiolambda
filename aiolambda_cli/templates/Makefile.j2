@@ -1,6 +1,6 @@
 .PHONY: help requirements requirements_test lint test run destroy_db init_db destroy_mq init_mq
 
-APP := auth
+APP := {{ project_name }}
 WORKON_HOME ?= .venv
 VENV_BASE := $(WORKON_HOME)/aiolambda
 VENV_ACTIVATE := $(VENV_BASE)/bin/activate

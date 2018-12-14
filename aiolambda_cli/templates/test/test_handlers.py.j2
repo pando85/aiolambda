@@ -2,8 +2,8 @@ import pytest
 
 from aiolambda.app import get_app
 
-from auth.db import init_db
-from auth.handlers import routes
+from {{ project_name }}.db import init_db
+from {{ project_name }}.handlers import routes
 
 
 @pytest.fixture
