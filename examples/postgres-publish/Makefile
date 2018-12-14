@@ -28,7 +28,7 @@ requirements_test: requirements
 lint:	## run pycodestyle
 lint: requirements_test
 	@echo Running linter
-	@${PYTHON} -m pycodestyle ${APP} test
+	@${PYTHON} -m pycodestyle .
 	@${PYTHON} -m flake8 ${APP} test
 	@${PYTHON} -m mypy --ignore-missing-imports ${APP} test
 
