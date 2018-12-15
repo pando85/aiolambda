@@ -14,8 +14,7 @@ def _iscoroutinefunction_or_partial(object):
     return iscoroutinefunction(object)
 
 
-# Any becouse mypy cannot overload with List, Tupple...
-def compose(*funcs: Any) -> Callable:
+def compose(*funcs: Callable) -> Callable:
     first, second, *rest = funcs
     if rest:
         second = compose(second, *rest)
