@@ -3,33 +3,9 @@ from aiohttp.web import Request, Response, RouteTableDef
 from aiolambda import logger
 from aiolambda.functools import compose
 
-from {{ project_name }}.db import create_user
-from {{ project_name }}.user import to_dict
-from {{ project_name }}.response import return_200, return_201
-from {{ project_name }}.token import create_token
-from {{ project_name }}.verify import check_password
+from {{ project_name }}.response import return_200
 
 routes = RouteTableDef()
-
-
-@routes.post('/auth')
-async def auth_handler(request: Request) -> Response:
-    return await compose(
-        check_password,
-        logger.debug,
-        create_token,
-        logger.debug,
-        return_201
-    )(request)
-
-
-@routes.post('/user')
-async def create_user_handler(request: Request) -> Response:
-    return await compose(
-        create_user,
-        to_dict,
-        return_201
-    )(request)
 
 
 @routes.get('/ping')
