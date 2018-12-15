@@ -3,7 +3,7 @@ import asyncpg
 from aiolambda import logger
 from aiolambda.db import _check_table_exists
 
-EXAMPLE_TABLE_NAME = 'default'
+EXAMPLE_TABLE_NAME = 'foo'
 
 
 async def init_db(conn: asyncpg.connect) -> None:
