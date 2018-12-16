@@ -22,6 +22,10 @@ def compose(*funcs: Callable) -> Callable:
         async def _async(*args, **kwargs):
             return await second(await first(*args, **kwargs))
         return _async
+    if _iscoroutinefunction_or_partial(second):
+        async def _async(*args, **kwargs):
+            return await second(first(*args, **kwargs))
+        return _async
     if _iscoroutinefunction_or_partial(first):
         async def _async(*args, **kwargs):
             return second(await first(*args, **kwargs))
