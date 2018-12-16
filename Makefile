@@ -86,7 +86,7 @@ install: venv build
 	@pip uninstall -y aiolambda
 	@echo Install packages
 	@${PYTHON} setup.py install > /dev/null
-	@sudo /usr/bin/python3 setup.py install > /dev/null
+	@sudo /usr/bin/pip3 install setuptools && sudo /usr/bin/python3 setup.py install > /dev/null
 
 template:	## aiolambda-cli execution, user ARGS var to parse ARGS. `make template ARGS="--db init test_template"`
 template: install
