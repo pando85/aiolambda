@@ -1,0 +1,5 @@
+from typing import Callable, Dict
+
+
+def init_mq() -> Dict[str, Callable]:
+    return {'foo': lambda x: x}

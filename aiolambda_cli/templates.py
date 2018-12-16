@@ -33,7 +33,7 @@ def render_all(vars_dict: dict) -> List[str]:
         for directory_path in all_directories]
 
     dest_dir.mkdir()
-    map(lambda x: x.mkdir(), directories)  # type: ignore
+    list(map(lambda x: x.mkdir(), directories))  # type: ignore
 
     def filter_templates(template_path: Path) -> bool:
         if template_path.is_file():

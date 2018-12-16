@@ -4,11 +4,14 @@ from aiolambda.app import get_app
 from aiolambda.logger import access_logger
 
 from {{ project_name }}.db import init_db
+{%- if is_mq %}
+from {{ project_name }}.mq import init_mq
+{%- endif %}
 from {{ project_name }}.handlers import routes
 
 
 def main():
-    app = get_app(init_db=init_db)
+    app = get_app(init_db=init_db{% if is_mq %}, init_mq=init_mq{% endif %})
     app.add_routes(routes)
 
     aiohttp.web.run_app(app, access_log=access_logger)
