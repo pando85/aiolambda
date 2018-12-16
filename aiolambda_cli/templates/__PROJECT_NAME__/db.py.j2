@@ -1,0 +1,18 @@
+import asyncpg
+
+from aiolambda import logger
+from aiolambda.db import _check_table_exists
+
+EXAMPLE_TABLE_NAME = 'foo'
+
+
+async def init_db(conn: asyncpg.connect) -> None:
+    if await _check_table_exists(conn, EXAMPLE_TABLE_NAME):
+        logger.info('Already initializated.')
+        return
+
+    logger.info(f'Create table: {EXAMPLE_TABLE_NAME}')
+    await conn.execute(f'''
+        CREATE TABLE {EXAMPLE_TABLE_NAME}(
+        )
+    ''')

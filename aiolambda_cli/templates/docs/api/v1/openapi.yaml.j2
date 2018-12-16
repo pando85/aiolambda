@@ -1,0 +1,21 @@
+openapi: "3.0.0"
+info:
+  description: ""
+  version: "0.0.1"
+  title: "{{ project_name }}"
+servers:
+  - url: /v1
+tags:
+- name: ping
+  description: "Test service"
+paths:
+  /ping:
+    get:
+      tags:
+      - ping
+      summary: "Test service"
+      description: ""
+      operationId: "{{ project_name }}.handlers.ping_handler"
+      responses:
+        '200':
+          description: successful operation

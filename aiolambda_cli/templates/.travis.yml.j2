@@ -1,0 +1,56 @@
+---
+
+language: python
+python:
+  - '3.6'
+
+# Only execute travis in master or PR to master
+branches:
+  only:
+  - master
+
+stages:
+  - name: "unit tests"
+  - name: "update-dependencies"
+    if: branch = master AND type != pull_request
+  - name: dockerhub-build
+    if: branch = master AND type != pull_request
+
+jobs:
+  include:
+    - stage: "unit tests"
+      install:
+        - pip install -r requirements_test.txt
+      before_script:
+        # Disable services enabled by default
+        {%- if is_mq %}
+        - sudo service rabbitmq-server stop
+        {%- endif %}
+        - sudo service postgresql stop
+      script:
+        - make test
+    - stage: "update-dependencies"
+      install:
+        - pip install -r requirements_test.txt
+      before_script:
+        # Disable services enabled by default
+        {%- if is_mq %}
+        - sudo service rabbitmq-server stop
+        {%- endif %}
+        - sudo service postgresql stop
+      script:
+        - bash scripts/update_dependencies.sh
+      after_success:
+        - git config user.name "tracis-ci"
+        - git config user.email "travis-ci@travis-ci.org"
+        - git add requirements.txt
+        - git commit -m 'Update requirements.txt'
+        - git push "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" HEAD:$TRAVIS_BRANCH
+      env:
+        - GITHUB_TOKEN: XXXXX
+    - stage: dockerhub-build
+      install: skip
+      script:
+        - "curl -H 'Content-Type: application/json' --data '{\"build\": true}' -X POST https://registry.hub.docker.com/u/pando85/auth/trigger/$DOCKERHUB_TOKEN/"
+      env:
+        - DOCKERHUB_TOKEN: XXXXX

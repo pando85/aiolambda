@@ -37,6 +37,16 @@ async def test_compose_async():
     assert await compose(x2, plus5, x2)(1) == 14
 
 
+async def test_compose_async_first():
+    async def x2(x: int) -> int:
+        return x * 2
+
+    def plus5(x: int) -> int:
+        return x + 5
+    assert await compose(x2, plus5)(1) == 7
+    assert await compose(x2, plus5, x2)(1) == 14
+
+
 def test_bind():
     def x5(x: int) -> int:
         return x * 5

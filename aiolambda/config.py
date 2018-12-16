@@ -1,6 +1,7 @@
 import os
 
 
+API_SPECS_PATH: str = os.environ.get('API_SPECS_PATH', 'docs/api/v1/openapi.yaml')
 LOG_LEVEL: str = os.environ.get('LOG_LEVEL', 'INFO')
 
 POSTGRES_HOST: str = os.environ.get('POSTGRES_HOST', 'localhost')

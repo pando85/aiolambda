@@ -1,0 +1,12 @@
+from aiohttp.web import Response
+
+from aiolambda import logger
+from aiolambda.functools import compose
+
+from {{ project_name }}.response import return_200
+
+
+async def ping_handler() -> Response:
+    return compose(
+        logger.debug,
+        return_200)('pong')

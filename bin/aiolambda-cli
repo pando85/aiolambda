@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+""" aiolambda-cli. aiolambda helper to init and update templates.
+Usage:
+    aiolambda-cli init [--db=<name>] [--mq] [--ci] <project-name>
+    aiolambda-cli [-h]
+Options:
+    -h --help       Show this screen.
+    --version       Show version.
+    --db=<name>     Database to include: [postgresql]. [default: postgresql]
+    --mq            Include RabbitMQ/AMQP client library.
+    --ci            Include Travis-CI configuration.
+"""
+
+import docopt
+
+from typing import Dict, Union
+from pathlib import Path
+
+from aiolambda import __version__
+from aiolambda_cli.templates import render_all
+
+
+def get_vars_dict(arguments: docopt.docopt) -> Dict[str, Union[str, bool]]:
+    return {
+        'project_name': arguments['<project-name>'],
+        'database': arguments['--db'],
+        'version': __version__,
+        'test': False,
+        'is_mq': arguments['--mq'],
+        'is_ci': arguments['--ci']
+    }
+
+
+def main():
+    arguments = docopt.docopt(__doc__)
+
+    if Path(arguments['<project-name>']).exists():
+        print("Project already exists")
+        return
+
+    render_all(get_vars_dict(arguments))
+
+
+if __name__ == '__main__':
+    main()

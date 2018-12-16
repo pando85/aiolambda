@@ -4,3 +4,7 @@ cchardet==2.1.4
 passlib==1.7.1
 uvloop==0.11.3
 aio-pika==4.8.0
+docopt==0.6.2
+Jinja2==2.10
+pathlib==1.0.1
+connexion==2.1.0

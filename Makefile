@@ -28,12 +28,12 @@ requirements_test: requirements
 lint:	## run pycodestyle
 lint: requirements_test
 	@echo Running linter
-	@${PYTHON} -m pycodestyle ${APP} test
-	@${PYTHON} -m flake8 ${APP} test
-	@${PYTHON} -m mypy --ignore-missing-imports ${APP} test
+	@${PYTHON} -m pycodestyle .
+	@${PYTHON} -m flake8 ${APP} ${APP}_cli test bin/aiolambda-cli
+	@${PYTHON} -m mypy --ignore-missing-imports ${APP} ${APP}_cli test bin/aiolambda-cli
 
 test:	## run tests and show report
-test: lint init_db init_mq
+test: lint init_db init_mq install
 	@echo Running tests
 	@LOG_LEVEL=DEBUG ${PYTHON} -m coverage run -m pytest test
 	@${PYTHON} -m coverage report -m
@@ -71,6 +71,22 @@ init_mq: destroy_mq
 		sleep 1; \
 	done;
 
+clean:	## clean all artefacts
+	@echo Cleaning all
+	@rm -rf build dist
+
 build:	## build package
-build: venv
-	@${PYTHON} setup.py bdist_wheel
+build: clean requirements_test
+	@echo Build package
+	@${PYTHON} setup.py bdist_wheel > /dev/null
+
+install:	## install packages
+install: venv build
+	@echo Remove old package
+	@pip uninstall -y aiolambda
+	@echo Install packages
+	@${PYTHON} setup.py install > /dev/null
+
+template:	## aiolambda-cli execution, user ARGS var to parse ARGS. `make template ARGS="--db init test_template"`
+template: install
+	@./bin/aiolambda-cli ${ARGS}

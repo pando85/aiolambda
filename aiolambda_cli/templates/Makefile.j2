@@ -1,8 +1,13 @@
 .PHONY: help requirements requirements_test lint test run destroy_db init_db destroy_mq init_mq
 
-APP := auth
-WORKON_HOME ?= .venv
+APP := {{ project_name }}
+{%- if test %}
+WORKON_HOME ?= ../.venv
 VENV_BASE := $(WORKON_HOME)/aiolambda
+{%- else %}
+WORKON_HOME ?= .venv
+VENV_BASE := $(WORKON_HOME)/${APP}
+{%- endif %}
 VENV_ACTIVATE := $(VENV_BASE)/bin/activate
 PYTHON := ${VENV_BASE}/bin/python3
 
@@ -33,21 +38,24 @@ lint: requirements_test
 	@${PYTHON} -m mypy --ignore-missing-imports ${APP} test
 
 test:	## run tests and show report
-test: lint init_db init_mq
+test: lint init_db {% if is_mq %}init_mq{% endif%}
 	@echo Running tests
 	@LOG_LEVEL=DEBUG ${PYTHON} -m coverage run -m pytest test
 	@${PYTHON} -m coverage report -m
 
 run:	## run project
-run: requirements init_db init_mq
+run: requirements init_db {% if is_mq %}init_mq{% endif%}
 	@${PYTHON} -m ${APP}
 
 destroy_db:	## destroy docker database
+{%- if database == 'postgresql' %}
 	@echo Destroy postgres
 	@docker rm -f postgres > /dev/null || echo Not postgres running
+{%- endif %}
 
 init_db:	## create docker database
 init_db: destroy_db
+{%- if database == 'postgresql' %}
 	@echo Starting postgres
 	@docker run -d --name postgres -e POSTGRES_DB=test -e POSTGRES_USER=test \
 	-e POSTGRES_PASSWORD=test1234 -p 5432:5432 postgres > /dev/null
@@ -55,7 +63,9 @@ init_db: destroy_db
 	 	echo 'Waiting for postgres...'; \
 	 	sleep 1; \
 	done;
+{%- endif %}
 
+{%- if is_mq %}
 destroy_mq:    ## destroy docker mq
 	@echo Destroy rabbit
 	@docker rm -f rabbit > /dev/null || echo Not postgres running
@@ -70,3 +80,4 @@ init_mq: destroy_mq
 		echo 'Waiting for rabbit...'; \
 		sleep 1; \
 	done;
+{%- endif %}

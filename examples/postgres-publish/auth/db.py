@@ -55,7 +55,7 @@ async def init_db(conn: asyncpg.connect) -> None:
         )
     ''')
 
-    logger.info(f'Create admin user')
+    logger.info(f'Create {ADMIN_USER} user')
     await _create_user(conn, User(ADMIN_USER, ADMIN_PASSWORD))
 
 
