@@ -20,6 +20,7 @@ branches:
 
 install:
   - make requirements_test
+  - sudo apt-get install python3-setuptools
 script:
   - make test
 
