@@ -76,7 +76,7 @@ clean:	## clean all artefacts
 	@rm -rf build dist
 
 build:	## build package
-build: clean
+build: clean requirements_test
 	@echo Build package
 	@${PYTHON} setup.py bdist_wheel > /dev/null
 
