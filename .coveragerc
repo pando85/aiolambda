@@ -1,6 +1,9 @@
 [run]
 branch = True
-include = ./aiolambda/*
+source =
+        aiolambda
+        aiolambda_cli
+omit = *.j2
 
 [report]
 exclude_lines =
