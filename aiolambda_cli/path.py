@@ -18,7 +18,7 @@ def dest_from_template(template_base: Path, dest_dir: Path, template_path: Path)
 
     remove_base = partial(remove, str(template_base) + '/')
     remove_j2 = partial(remove, '.j2')
-    replace_name = partial(replace, MARKER_PROJECT_NAME, str(dest_dir))
+    replace_name = partial(replace, MARKER_PROJECT_NAME, str(dest_dir.name))
 
     add_dest_dir = partial(add_path, dest_dir)
 
