@@ -54,7 +54,7 @@ jobs:
       script: skip
       if: type != pull_request AND tag IS present
       before_deploy:
-        - export BODY="$(jshon -s $(git log $(git describe --tags --abbrev=1 HEAD^)..HEAD --pretty=format:'- %s'))"
+        - export BODY="$(git log $(git describe --tags --abbrev=1 HEAD^^)..HEAD^ --pretty=format:'- %s'  | jq -aR .)"
       deploy:
         - provider: pypi
           user: "pando85"
