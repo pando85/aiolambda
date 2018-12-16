@@ -38,6 +38,15 @@ def render_all(vars_dict):
             render_from_file(template_path, vars_dict),
             dest_from_path(template_path))
 
-    all_templates = filter(lambda x: x.is_file(), all_tree)
+    def filter_templates(template_path):
+        if template_path.is_file():
+            if not vars_dict['is_ci'] and 'travis' in str(template_path):
+                return False
+            if not vars_dict['is_mq'] and 'mq' in str(template_path):
+                return False
+            return True
+        return False
+
+    all_templates = filter(filter_templates, all_tree)
     templates = [generate_template(template_path) for template_path in all_templates]
     return templates
