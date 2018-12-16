@@ -1,34 +1,32 @@
-from aiohttp.web import Response, json_response
-
 from aiolambda.errors import ObjectAlreadyExists, ObjectNotFound
-from aiolambda.typing import Maybe
+from aiolambda.typing import Maybe, Response
 
 from auth.errors import InvalidPassword
 
 
 def return_error(error: Exception) -> Response:
     if isinstance(error, ObjectNotFound):
-        return json_response('Invalid credentials', status=422)
+        return ('Invalid credentials', 422)
     if isinstance(error, ObjectAlreadyExists):
-        return json_response('User already exists', status=409)
+        return ('User already exists', 409)
     if isinstance(error, InvalidPassword):
-        return json_response('Invalid credentials', status=422)
-    return json_response('Unknow error', status=500)
+        return ('Invalid credentials', 422)
+    return ('Unknow error', 500)
 
 
 def return_200(maybe_json: Maybe[dict]) -> Response:
     if isinstance(maybe_json, Exception):
         return return_error(maybe_json)
-    return json_response('', status=200)
+    return ('', 200)
 
 
 def return_201(maybe_json: Maybe[dict]) -> Response:
     if isinstance(maybe_json, Exception):
         return return_error(maybe_json)
-    return json_response(maybe_json, status=201)
+    return (maybe_json, 201)
 
 
 def return_204(maybe_json: Maybe[dict]) -> Response:
     if isinstance(maybe_json, Exception):
         return return_error(maybe_json)
-    return json_response('', status=204)
+    return ('', 204)

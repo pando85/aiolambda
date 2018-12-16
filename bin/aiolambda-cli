@@ -13,16 +13,19 @@ Options:
 
 import docopt
 
-from typing import Dict
+from typing import Dict, Union
 from pathlib import Path
 
+from aiolambda import __version__
 from aiolambda_cli.templates import render_all
 
 
-def get_vars_dict(arguments: docopt.docopt) -> Dict[str, str]:
+def get_vars_dict(arguments: docopt.docopt) -> Dict[str, Union[str, bool]]:
     return {
         'project_name': arguments['<project-name>'],
         'database': arguments['--db'],
+        'version': __version__,
+        'test': False,
         'is_mq': arguments['--mq'],
         'is_ci': arguments['--ci']
     }

@@ -3,6 +3,7 @@ import pytest
 import subprocess
 import shutil
 
+from aiolambda import __version__
 from aiolambda_cli.templates import render_all
 
 
@@ -10,7 +11,9 @@ def input_vars_list():
     all_posibilites = itertools.product([True, False], repeat=2)
     return [{
         'project_name': 'test1',
+        'version': __version__,
         'database': 'postgres',
+        'test': True,
         'is_mq': _vars[0],
         'is_ci': _vars[1]
     } for _vars in all_posibilites]
