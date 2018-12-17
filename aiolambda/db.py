@@ -19,7 +19,9 @@ async def _check_table_exists(conn: asyncpg.connect, table: str) -> bool:
     return r['exists']
 
 
-async def setup_db_base(init_db: Callable, app: aiohttp.web.Application) -> None:
+# last argument is passed by aiohttp on_startup, this reference is not global
+async def setup_db_base(init_db: Callable, app: aiohttp.web.Application,
+                        _useless_reference: aiohttp.web.Application) -> None:
     app['pool'] = await asyncpg.create_pool(
         host=POSTGRES_HOST,
         port=POSTGRES_PORT,
