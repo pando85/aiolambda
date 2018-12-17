@@ -38,10 +38,6 @@ test: lint init_db init_mq install
 	@LOG_LEVEL=DEBUG ${PYTHON} -m coverage run -m pytest test
 	@${PYTHON} -m coverage report -m
 
-run:	## run project
-run: requirements init_db init_mq
-	@${PYTHON} -m ${APP}
-
 destroy_db:	## destroy docker database
 	@echo Destroy postgres
 	@docker rm -f postgres > /dev/null || echo Not postgres running
