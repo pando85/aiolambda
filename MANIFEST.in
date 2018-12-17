@@ -1,0 +1,2 @@
+include *.md
+recursive-include aiolambda_cli/templates *.j2

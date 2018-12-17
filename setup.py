@@ -35,8 +35,6 @@ if __name__ == '__main__':
           license='GPLv3+',
           packages=['aiolambda',
                     'aiolambda_cli'],
-          package_data={'': ['LICENSE'],
-                        'aiolambda_cli': ['templates/*', 'templates/**/*', 'templates/.*']},
           scripts=['bin/aiolambda-cli'],
           install_requires=requirements,
           include_package_data=True,
