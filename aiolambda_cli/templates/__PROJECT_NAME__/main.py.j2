@@ -1,3 +1,4 @@
+from aiolambda import logger
 from aiolambda.app import get_app
 
 from {{ project_name }}.db import init_db
@@ -8,4 +9,4 @@ from {{ project_name }}.mq import init_mq
 
 def main():
     app = get_app(init_db=init_db{% if is_mq %}, init_mq=init_mq{% endif %})
-    app.run(port=8080)
+    app.run(port=8080, access_log=logger.access_log)
