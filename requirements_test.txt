@@ -5,3 +5,5 @@ flake8
 mypy
 pytest-aiohttp
 setuptools
+Sphinx==1.8.2
+sphinxcontrib-websupport==1.1.0
