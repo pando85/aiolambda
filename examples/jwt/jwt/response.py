@@ -1,14 +1,13 @@
 from aiohttp.web import Response, json_response
 
-from aiolambda.errors import ObjectAlreadyExists, ObjectNotFound
 from aiolambda.typing import Maybe
+
+from jwt.errors import JWTEncodeError
 
 
 def return_error(error: Exception) -> Response:
-    if isinstance(error, ObjectNotFound):
-        return json_response('Invalid credentials', status=422)
-    if isinstance(error, ObjectAlreadyExists):
-        return json_response('User already exists', status=409)
+    if isinstance(error, JWTEncodeError):
+        return json_response('Error creating JWT', status=400)
     return json_response('Unknow error', status=500)
 
 
