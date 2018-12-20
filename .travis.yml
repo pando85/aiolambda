@@ -55,7 +55,6 @@ jobs:
       if: type != pull_request AND tag IS present
       before_deploy:
         #- export BODY="$(git log $(git describe --tags --abbrev=1 HEAD^^)..HEAD^ --pretty=format:'- %s'  | jq -aR .)"
-        - export BODY=""
       deploy:
         - provider: pypi
           user: "pando85"
@@ -66,7 +65,7 @@ jobs:
             tags: true
         - provider: releases
           api_key: "$GITHUB_TOKEN"
-          body: "$BODY"
+#          body: "$BODY"
           file_glob: true
           file: dist/*
           skip_cleanup: true
