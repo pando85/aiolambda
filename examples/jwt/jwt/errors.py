@@ -1,0 +1,3 @@
+
+class JWTEncodeError(Exception):
+    pass

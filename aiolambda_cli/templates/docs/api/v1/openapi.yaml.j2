@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   description: ""
-  version: "0.0.1"
+  version: "1.0"
   title: "{{ project_name }}"
 servers:
   - url: /v1
@@ -19,3 +19,25 @@ paths:
       responses:
         '200':
           description: successful operation
+components:
+  schemas:
+    Token info:
+      type: object
+      properties:
+        iss:
+          type: string
+          example: aiolambda
+        iat:
+          type: integer
+          example: 1545340057
+        exp:
+          type: integer
+          example: 1545340657
+        sub:
+          type: string
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      x-bearerInfoFunc: aiolambda.security.decode_token
