@@ -2,7 +2,7 @@
 set -e
 
 check_version_changes(){
-    git diff  HEAD^ HEAD -- aiolambda/__init__.py | grep --quiet +__version__;
+    git diff  $(git describe --tags --abbrev=1 HEAD)..HEAD -- aiolambda/__init__.py | grep --quiet +__version__;
 };
 
 if ! check_version_changes; then
