@@ -2,8 +2,6 @@ Roadmap
 =======
 
 - Add more examples:
-    - **jwt**: ping, lambda. Open Api definition, basic commands.
-        \*Document project: [**page:quickstart**]
     - **crud_users**: postgres. Postgres calls.
         \*Document project: [**page:database:postgres**]
     - **user_settings**: mq. Send and subscribe AMQP messages.

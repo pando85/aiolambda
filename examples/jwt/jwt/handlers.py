@@ -8,7 +8,7 @@ from jwt.jwt import generate_token
 from jwt.utils import get_secret
 
 
-async def auth_handler(user_id) -> Response:
+async def auth_handler(user_id: str) -> Response:
     return compose(
         generate_token,
         logger.debug,
