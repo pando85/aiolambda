@@ -6,8 +6,11 @@ Welcome to aiolambda's documentation!
    :caption: Contents:
 
    quickstart
+   template_init
+   template_update
    database
    amqp
+   roadmap
 
 Aiolambda-cli
 -------------

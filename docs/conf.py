@@ -29,7 +29,7 @@ copyright = 'Aiolambda contributors'
 version = '{major}.{minor}'.format(**_version_info)
 release = '{major}.{minor}.{patch}{tag}'.format(**_version_info)
 
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', 'requirements.txt']
 
 highlight_language = 'python3'
 
