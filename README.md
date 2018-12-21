@@ -6,11 +6,29 @@ Python async microservices fasts and functional!
 
 ### Python libraries
 
-- [connexion](https://github.com/zalando/connexion)
-- [aiohttp](https://github.com/aio-libs/aiohttp)
-- [asyncpg](https://github.com/MagicStack/asyncpg)
-- [aio-pika](https://github.com/mosquito/aio-pika)
+#### core
+
+- [connexion](https://github.com/zalando/connexion):
+    Swagger/OpenAPI First framework for Python on top of Flask with automatic endpoint validation & OAuth2 support
+- [aiohttp](https://github.com/aio-libs/aiohttp):
+    Asynchronous HTTP client/server framework for asyncio and Python
+
+#### Databases
+
+- [asyncpg](https://github.com/MagicStack/asyncpg):
+    A fast PostgreSQL Database Client Library for Python/asyncio.
+
+#### AMPQ
+
+- [aio-pika](https://github.com/mosquito/aio-pika):
+    Wrapper for the PIKA for asyncio and humans.
 
 ### Software
+
+#### Containers
+
 - [Docker](https://www.docker.com/)
+
+#### Continuous Integration
+
 - [travis-ci](https://travis-ci.org/)
