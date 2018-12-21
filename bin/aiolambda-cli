@@ -6,7 +6,7 @@ Usage:
 Options:
     -h --help       Show this screen.
     --version       Show version.
-    --db=<name>     Database to include: [postgresql]. [default: postgresql]
+    --db=<name>     Database to include: [postgresql].
     --mq            Include RabbitMQ/AMQP client library.
     --ci            Include Travis-CI configuration.
 """
