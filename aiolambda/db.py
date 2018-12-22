@@ -1,6 +1,7 @@
 import aiohttp
 import asyncpg
 
+from toolz import curry
 from typing import Callable
 
 from aiolambda.config import (POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB, POSTGRES_USER,
@@ -20,6 +21,7 @@ async def _check_table_exists(conn: asyncpg.connect, table: str) -> bool:
 
 
 # last argument is passed by aiohttp on_startup, this reference is not global
+@curry
 async def setup_db_base(init_db: Callable, app: aiohttp.web.Application,
                         _useless_reference: aiohttp.web.Application) -> None:
     app['pool'] = await asyncpg.create_pool(
