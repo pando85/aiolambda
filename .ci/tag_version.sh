@@ -11,5 +11,11 @@ if ! check_version_changes; then
 fi
 VERSION=$(python -c 'import aiolambda; print(aiolambda.__version__)')
 
-git tag -a $VERSION -m "version $VERSION"
-git push "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" $VERSION
+if [ ! -z "${TRAVIS_REPO_SLUG}"]; then
+    git tag -a $VERSION -m "version $VERSION"
+    git push "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" $VERSION
+fi
+
+WORKDIR=$(dirname $(realpath $0))
+
+bash $WORKDIR/make_changelog.sh
