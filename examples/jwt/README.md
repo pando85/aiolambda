@@ -1,5 +1,7 @@
 # JWT Example
 
+Simple microservice that generate a JWT token and return a value in a secured entrypoint.
+
 ## Lint
 
 Lint: `make lint`
