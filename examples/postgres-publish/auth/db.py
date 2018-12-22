@@ -2,7 +2,7 @@ import aiohttp
 import asyncpg
 import passlib.hash
 
-from functools import partial
+from toolz import curry
 from typing import Callable
 
 from aiolambda import logger
@@ -59,6 +59,7 @@ async def init_db(conn: asyncpg.connect) -> None:
     await _create_user(conn, User(ADMIN_USER, ADMIN_PASSWORD))
 
 
+@curry
 async def _operate_user(operation: Callable, request: aiohttp.web.Request) -> Maybe[User]:
     pool = request.app['pool']
     user_request = User(**(await request.json()))
@@ -71,6 +72,6 @@ async def _operate_user(operation: Callable, request: aiohttp.web.Request) -> Ma
     return maybe_user
 
 
-create_user = partial(_operate_user, _create_user)
-get_user = partial(_operate_user, _get_user)
-update_user = partial(_operate_user, _update_user)
+create_user = _operate_user(_create_user)
+get_user = _operate_user(_get_user)
+update_user = _operate_user(_update_user)

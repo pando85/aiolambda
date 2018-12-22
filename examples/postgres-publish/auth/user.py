@@ -1,4 +1,3 @@
-from functools import partial
 from typing import NamedTuple
 
 from aiolambda.functools import bind
@@ -9,9 +8,7 @@ class User(NamedTuple):
     password: str
 
 
-def _to_dict(user: User) -> dict:
+@bind
+def to_dict(user: User) -> dict:
     return {'username': user.username,
             'password': user.password}
-
-
-to_dict = partial(bind, _to_dict)

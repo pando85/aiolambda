@@ -51,7 +51,7 @@ def test_bind():
     def x5(x: int) -> int:
         return x * 5
 
-    maybe_x5 = partial(bind, x5)
+    maybe_x5 = bind(x5)
     assert maybe_x5(1) == 5
 
     exception = maybe_x5(Exception())

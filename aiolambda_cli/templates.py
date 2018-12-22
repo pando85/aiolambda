@@ -1,6 +1,5 @@
 import jinja2
 
-from functools import partial
 from pathlib import Path
 from typing import List
 
@@ -24,7 +23,7 @@ def render_from_file(path: Path, vars_dict: dict) -> str:
 def render_all(vars_dict: dict) -> List[str]:
     template_base_path = Path(TEMPLATE_BASE_PATH)
     dest_dir = Path(vars_dict['project_name'])
-    dest_from_path = partial(dest_from_template, template_base_path, dest_dir)
+    dest_from_path = dest_from_template(template_base_path, dest_dir)
 
     all_tree = list(template_base_path.glob('**/*'))
     all_directories = filter(lambda x: x.is_dir(), all_tree)

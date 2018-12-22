@@ -1,6 +1,7 @@
 import functools
 
 from inspect import iscoroutinefunction
+from toolz import curry
 from typing import Any, Callable, TypeVar
 
 from aiolambda.typing import Maybe
@@ -36,6 +37,7 @@ def compose(*funcs: Callable) -> Callable:
     return _func
 
 
+@curry
 def bind(f: Callable, x: Maybe[T]) -> Any:
     if isinstance(x, Exception):
         return x
