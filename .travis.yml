@@ -34,12 +34,6 @@ jobs:
         - make requirements_test
       script:
         - bash .ci/update_dependencies.sh
-      after_success:
-        - git config user.name "tracis-ci"
-        - git config user.email "travis-ci@travis-ci.org"
-        - git add requirements.txt
-        - git commit -m 'Update requirements.txt'
-        - git push "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" HEAD:$TRAVIS_BRANCH
       env:
         secure: "cMx5gbdwEYJxWgKbq3Q4g9n2kWJCTaCIDRM21/b9ULgQnoU3Yjj2Ce4r/PCEzJIscgfuGRhB6krzl4g9kjvc/JNedeY1rIuJiW1M/MlmIXR8hWUhcuiH6jCj7RK1kwojMStvDBZsbar3cMfMdeBbmQ/TNqHYnHpAsshb1X9u5THkOk3GUnJRkJpMBkU08jELKbSupH6d7fnRTSIiGOIa20lBWMlXB3W1xto1Xvh+vJG0f0+8etjMidLo99nJRQMpieKh4MouvmMOASr17iMlkXxFhjuxUCgoQCqXXqxfW312+LwFkpapu4X2cHWyJbt+7gPW/OlqHGWDddUznlsHKMw06gVABG/oEFmB+PMavulYl+4SGLYdUk/JGTfc+GcCuA/I1qLtCTqcBozPMVQGifTFQFDhG055yH+kGhVRW7sWPNBUp2AwlXAcZuOkt2s8xuTOnB83A7cvzCmQroS74jj5jWPdNPsi4xwTr4jRohgndTEta4JGXUt8XOAA9GozRR868mi3myLgtOfx5VzPvTvr3npmzIv0nXS29ukzN1xghZXL0jijggAsYZ3FrolaiZmEPfeWLdGtfTCB2XZ4qHzv1RB/v2rbhCRU4Q1VB3+Oilq5a5hwyLUZJL4UJlswXkg9JlHHYTXQN/7IyOnb8zOJzoBTSfdaoFrJcIntkCo="
     - stage: "tag version"
