@@ -10,7 +10,7 @@ def cli(loop, aiohttp_client):
 
 
 async def test_auth(cli):
-    token_start = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhaW9sYW1iZGEiLC"
+    token_start = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhaW9sY'
     resp = await cli.get('/v1/auth/12')
     assert resp.status == 200
     token = str(await resp.json())

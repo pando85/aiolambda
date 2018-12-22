@@ -1,6 +1,6 @@
 from jose import jwt
 
-from aiolambda.config import JWT_ALGORITHM, JWT_ISSUER, JWT_LIFETIME_SECONDS, JWT_SECRET
+from aiolambda.config import JWT_ALGORITHM, JWT_ISSUER, JWT_LIFETIME_SECONDS, JWT_PRIVATE_KEY
 from aiolambda.typing import Maybe
 
 from jwt.utils import current_timestamp
@@ -17,6 +17,6 @@ def generate_token(user_id: str) -> Maybe[dict]:
     }
 
     try:
-        return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+        return jwt.encode(payload, JWT_PRIVATE_KEY, algorithm=JWT_ALGORITHM)
     except Exception:
         return JWTEncodeError()
