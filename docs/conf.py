@@ -16,9 +16,7 @@ with io.open(_version_path, 'r', encoding='latin1') as fp:
     except IndexError:
         raise RuntimeError('Unable to determine version.')
 
-extensions = [
-    'm2r',
-]
+extensions = []
 
 source_suffix = '.rst'
 
