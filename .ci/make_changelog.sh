@@ -5,7 +5,7 @@ NEW_LOG=$(git log $(git describe --tags --abbrev=1 HEAD^^)..HEAD^ --pretty=forma
 
 echo " # $(git describe --tags --abbrev=0 HEAD)"$'\n'$'\n'"${NEW_LOG}"$'\n'$'\n'"$(cat CHANGELOG.md)" > CHANGELOG.md
 
-if [ ! -z "${TRAVIS_REPO_SLUG}"]; then
+if [ ! -z "${TRAVIS_REPO_SLUG}" ]; then
     git config user.name "tracis-ci"
     git config user.email "travis-ci@travis-ci.org"
     git add CHANGELOG.md
