@@ -10,7 +10,7 @@ T = TypeVar('T')
 
 
 def _iscoroutinefunction_or_partial(object):
-    if isinstance(object, functools.partial):
+    if isinstance(object, functools.partial) or isinstance(object, curry):
         object = object.func
     return iscoroutinefunction(object)
 

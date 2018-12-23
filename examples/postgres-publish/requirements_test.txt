@@ -1,6 +1,0 @@
--r requirements.txt
-pycodestyle
-coverage
-flake8
-mypy
-pytest-aiohttp

@@ -1,7 +1,0 @@
-[run]
-branch = True
-include = ./auth/*
-
-[report]
-exclude_lines =
-        if __name__ == .__main__.:
