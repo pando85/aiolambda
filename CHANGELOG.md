@@ -1,3 +1,7 @@
+ # 0.2.11
+
+- Update changelog
+
  # 0.2.10
 
 - Add description to jwt example (#36)
