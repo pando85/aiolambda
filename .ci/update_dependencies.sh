@@ -37,12 +37,11 @@ make test
 
 if update_requirements requirements.txt; then
     echo "Updated requirements"
-fi
-
-if [ ! -z "${TRAVIS_REPO_SLUG}" ]; then
-    git config user.name "tracis-ci"
-    git config user.email "travis-ci@travis-ci.org"
-    git add requirements.txt
-    git commit -m 'Update requirements.txt'
-    git push "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" HEAD:$TRAVIS_BRANCH
+    if [ ! -z "${TRAVIS_REPO_SLUG}" ]; then
+        git config user.name "tracis-ci"
+        git config user.email "travis-ci@travis-ci.org"
+        git add requirements.txt
+        git commit -m 'Update requirements.txt'
+        git push "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" HEAD:$TRAVIS_BRANCH
+    fi
 fi
