@@ -31,8 +31,8 @@ update_requirements(){
 
 echo Update packages
 update_packages
-
-if update_requirements requirements.txt; then
+update_requirements requirements.txt
+if ! git diff --exit-code -- requirements.txt; then
     echo "Updated requirements"
     echo Run unit tests
     make test
