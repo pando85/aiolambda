@@ -29,7 +29,7 @@ matrix:
 jobs:
   include:
     - stage: "update-dependencies"
-      if: tag IS NOT present
+      if: branch = master AND type != pull_request AND tag IS NOT present
       install:
         - make requirements_test
       script:
