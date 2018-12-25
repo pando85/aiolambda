@@ -23,8 +23,9 @@ update_requirements(){
     echo Update $requirements_file
     for i in $(cat $requirements_file);
     do
-        package_name=$(echo $i | cut -d= -f1)
-        $PIP freeze --local | egrep ^${package_name} | grep ${package_name}= >> $temp_file;
+        package_name=$(echo $i | cut -d'[' -f1 | cut -d= -f1)
+        version=$($PIP freeze --local | egrep "^${package_name}" | grep ${package_name}= | cut -d= -f3);
+        echo "$(echo $i | cut -d= -f1)==${version}" >> $temp_file;
     done;
     cp $temp_file $requirements_file;
 };
@@ -32,6 +33,7 @@ update_requirements(){
 echo Update packages
 update_packages
 update_requirements requirements.txt
+
 if ! git diff --exit-code -- requirements.txt; then
     echo "Updated requirements"
     echo Run unit tests
