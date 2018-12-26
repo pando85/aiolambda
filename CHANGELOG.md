@@ -1,3 +1,7 @@
+# 0.2.14
+
+- Feature/oauth fix 403 (#47)
+
 # 0.2.13
 
 - Feature/scopes (#46)
