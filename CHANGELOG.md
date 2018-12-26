@@ -1,3 +1,7 @@
+# 0.2.18
+
+- Fix/ampq client (#52)
+
 # 0.2.17
 
 - Fix/mq template (#51)
