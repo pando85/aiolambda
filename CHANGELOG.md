@@ -1,3 +1,7 @@
+# 0.2.19
+
+- Fix/handle jwt error (#53)
+
 # 0.2.18
 
 - Fix/ampq client (#52)
