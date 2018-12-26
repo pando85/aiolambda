@@ -1,3 +1,7 @@
+# 0.2.17
+
+- Fix/mq template (#51)
+
 # 0.2.16
 
 - Feature/validate body and params (#49)
