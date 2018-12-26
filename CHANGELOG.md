@@ -1,3 +1,7 @@
+# 0.2.15
+
+- Fix/403 validate scope (#48)
+
 # 0.2.14
 
 - Feature/oauth fix 403 (#47)
