@@ -10,7 +10,7 @@ def decode_token(token, required_scopes=None):
     try:
         info = jwt.decode(token, JWT_PUBLIC_KEY, algorithms=[JWT_ALGORITHM])
     except JWTError:
-        raise aiohttp.web.HTTPForbidden
+        raise aiohttp.web.HTTPUnauthorized
     return info
 
 
