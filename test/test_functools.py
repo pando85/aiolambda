@@ -57,3 +57,16 @@ def test_bind():
     exception = maybe_x5(Exception())
     assert isinstance(exception, Exception)
     assert not isinstance(exception, int)
+
+
+def test_extended_bind():
+    def product(x: int, y: int = 5) -> int:
+        return x * y
+
+    maybe_product = bind(product)
+    assert maybe_product(1) == 5
+    assert maybe_product(1, 2) == 2
+
+    exception = maybe_product(Exception(), 2)
+    assert isinstance(exception, Exception)
+    assert not isinstance(exception, int)

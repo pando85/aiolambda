@@ -38,7 +38,9 @@ def compose(*funcs: Callable) -> Callable:
 
 
 @curry
-def bind(f: Callable, x: Maybe[T]) -> Any:
+def bind(f: Callable, x: Maybe[T], extra_arg: Any = None) -> Any:
     if isinstance(x, Exception):
         return x
+    if extra_arg:
+        return f(x, extra_arg)
     return f(x)
