@@ -1,3 +1,7 @@
+# 0.2.16
+
+- Feature/validate body and params (#49)
+
 # 0.2.15
 
 - Fix/403 validate scope (#48)
