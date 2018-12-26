@@ -14,5 +14,4 @@ async def send_message(channel: Channel, message_body: Any) -> None:
     )
 
 
-def init_mq() -> Optional[Dict[str, Callable]]:
-    return {}
+init_mq: Optional[Dict[str, Callable]] = {}
