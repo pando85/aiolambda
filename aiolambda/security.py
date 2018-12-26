@@ -2,7 +2,6 @@ import aiohttp.web
 import six
 
 from connexion.decorators.security import validate_scope as connexion_validate_scope
-from connexion.exceptions import OAuthScopeProblem
 from werkzeug.exceptions import Unauthorized
 from jose import JWTError, jwt
 
@@ -18,7 +17,7 @@ def decode_token(token, required_scopes=None):
 
 
 def validate_scope(required_scopes, token_scopes):
-    try:
-        return connexion_validate_scope(required_scopes, token_scopes)
-    except OAuthScopeProblem:
+    is_valid = connexion_validate_scope(required_scopes, token_scopes)
+    if not is_valid:
         raise aiohttp.web.HTTPForbidden
+    return is_valid
