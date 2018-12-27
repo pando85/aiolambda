@@ -41,4 +41,7 @@ def compose(*funcs: Callable) -> Callable:
 def bind(f: Callable, x: Maybe[T]) -> Any:
     if isinstance(x, Exception):
         return x
-    return f(x)
+    curry_f_x = curry(f)(x)
+    if callable(curry_f_x):
+        return bind(curry_f_x)
+    return curry_f_x

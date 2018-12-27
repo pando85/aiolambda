@@ -57,3 +57,29 @@ def test_bind():
     exception = maybe_x5(Exception())
     assert isinstance(exception, Exception)
     assert not isinstance(exception, int)
+
+
+def test_bind_curry():
+    def _sum(x: int, y: int) -> int:
+        return x + y
+
+    maybe_sum = bind(_sum)
+    maybe_sum1 = maybe_sum(1)
+    assert maybe_sum1(4) == 5
+
+    exception = maybe_sum1(Exception())
+    assert isinstance(exception, Exception)
+    assert not isinstance(exception, int)
+
+
+async def test_bind_async():
+    async def _sum(x: int, y: int) -> int:
+        return x + y
+
+    maybe_sum = bind(_sum)
+    maybe_sum1 = maybe_sum(1)
+    assert await maybe_sum1(5) == 6
+
+    exception = maybe_sum(Exception())
+    assert isinstance(exception, Exception)
+    assert not isinstance(exception, int)
