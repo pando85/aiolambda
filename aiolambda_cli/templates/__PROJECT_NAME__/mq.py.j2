@@ -1,4 +1,4 @@
-from aio_pika import DeliveryMode, Message
+from aio_pika import Channel, DeliveryMode, Message
 from aiohttp.web import Request
 from aiolambda import logger
 from toolz import curry
@@ -6,9 +6,9 @@ from typing import Callable, Dict, Optional
 
 
 @curry
-async def send_message(request: Request, message: str) -> str:
+async def send_message(channel: Channel, message: str) -> str:
     logger.debug(f'Publish {message} in route_example route')
-    await request.app['mq']['channel'].default_exchange.publish(
+    await channel.default_exchange.publish(
         Message(message.encode(), delivery_mode=DeliveryMode.PERSISTENT),
         'route_example')
     return message
