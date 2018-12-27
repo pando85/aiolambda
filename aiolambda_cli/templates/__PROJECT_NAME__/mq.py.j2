@@ -1,17 +1,17 @@
-from typing import Any, Callable, Dict, Optional
+from aio_pika import DeliveryMode, Message
+from aiohttp.web import Request
+from aiolambda import logger
+from toolz import curry
+from typing import Callable, Dict, Optional
 
-from aio_pika import Channel, DeliveryMode, Message
 
-
-async def send_message(channel: Channel, message_body: Any) -> None:
-    message = Message(
-        message_body,
-        delivery_mode=DeliveryMode.PERSISTENT
-    )
-
-    await channel.default_exchange.publish(
-        message, routing_key='task_queue'
-    )
+@curry
+async def send_message(request: Request, message: str) -> str:
+    logger.debug(f'Publish {message} in route_example route')
+    await request.app['mq']['channel'].default_exchange.publish(
+        Message(message.encode(), delivery_mode=DeliveryMode.PERSISTENT),
+        'route_example')
+    return message
 
 
 init_mq: Optional[Dict[str, Callable]] = {}
