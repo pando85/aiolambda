@@ -8,15 +8,16 @@ from aiolambda.config import (POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB, POSTGRE
                               POSTGRES_PASSWORD)
 
 
-async def _check_table_exists(conn: asyncpg.connect, table: str) -> bool:
-    r = await conn.fetchrow(f'''
-        SELECT EXISTS (
-            SELECT 1
-            FROM   pg_tables
-            WHERE  schemaname = 'public'
-            AND    tablename = $1
-            );
-    ''', table)
+async def _check_table_exists(pool: asyncpg.pool, table: str) -> bool:
+    async with pool.acquire() as conn:
+        r = await conn.fetchrow(f'''
+            SELECT EXISTS (
+                SELECT 1
+                FROM   pg_tables
+                WHERE  schemaname = 'public'
+                AND    tablename = $1
+                );
+        ''', table)
     return r['exists']
 
 
@@ -31,5 +32,4 @@ async def setup_db_base(init_db: Callable,
         database=POSTGRES_DB,
         user=POSTGRES_USER,
         password=POSTGRES_PASSWORD)
-    async with app['pool'].acquire() as connection:
-        await init_db(connection)
+    await init_db(app['pool'])

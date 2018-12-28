@@ -10,6 +10,13 @@ def test_iscoroutinefunction_or_partial():
     assert _iscoroutinefunction_or_partial(partial_foo) is True
 
 
+def test_iscoroutinefunction_or_partial_or_bind():
+    async def foo(boo, woo):
+        return (boo, woo)
+    partial_foo = bind(foo)
+    assert _iscoroutinefunction_or_partial(partial_foo(None)) is True
+
+
 def test_iscoroutinefunction_or_partial_false():
     def foo(boo, woo):
         return (boo, woo)
@@ -55,5 +62,31 @@ def test_bind():
     assert maybe_x5(1) == 5
 
     exception = maybe_x5(Exception())
+    assert isinstance(exception, Exception)
+    assert not isinstance(exception, int)
+
+
+def test_bind_curry():
+    def _sum(x: int, y: int) -> int:
+        return x + y
+
+    maybe_sum = bind(_sum)
+    maybe_sum1 = maybe_sum(1)
+    assert maybe_sum1(4) == 5
+
+    exception = maybe_sum1(Exception())
+    assert isinstance(exception, Exception)
+    assert not isinstance(exception, int)
+
+
+async def test_bind_async():
+    async def _sum(x: int, y: int) -> int:
+        return x + y
+
+    maybe_sum = bind(_sum)
+    maybe_sum1 = maybe_sum(1)
+    assert await maybe_sum1(5) == 6
+
+    exception = maybe_sum(Exception())
     assert isinstance(exception, Exception)
     assert not isinstance(exception, int)

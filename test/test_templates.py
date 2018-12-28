@@ -12,7 +12,7 @@ def input_vars_list():
     return [{
         'project_name': 'test1',
         'version': __version__,
-        'database': 'postgres',
+        'database': 'postgresql',
         'test': True,
         'is_mq': _vars[0],
         'is_ci': _vars[1]
