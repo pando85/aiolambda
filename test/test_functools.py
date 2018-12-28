@@ -10,6 +10,13 @@ def test_iscoroutinefunction_or_partial():
     assert _iscoroutinefunction_or_partial(partial_foo) is True
 
 
+def test_iscoroutinefunction_or_partial_or_bind():
+    async def foo(boo, woo):
+        return (boo, woo)
+    partial_foo = bind(foo)
+    assert _iscoroutinefunction_or_partial(partial_foo(None)) is True
+
+
 def test_iscoroutinefunction_or_partial_false():
     def foo(boo, woo):
         return (boo, woo)
