@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-NEW_LOG=$(git log $(git describe --tags --abbrev=1 HEAD^)..HEAD --pretty=format:'- %s'| sort | grep -v Merge | grep -v Release)
+NEW_LOG=$(git log $(git describe --tags --abbrev=0 HEAD^)..HEAD --pretty=format:'- %s'| sort | grep -v Merge | grep -v Release)
 
 echo "# $(git describe --tags --abbrev=0 HEAD)"$'\n'$'\n'"${NEW_LOG}"$'\n'$'\n'"$(cat CHANGELOG.md)" > CHANGELOG.md
 
