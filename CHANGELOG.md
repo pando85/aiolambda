@@ -1,3 +1,7 @@
+# 0.2.20
+
+- Refactor/pass pool to db functions (#56)
+
 # 0.2.19
 
 - Fix/handle jwt error (#53)
