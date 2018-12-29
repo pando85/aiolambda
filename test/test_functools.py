@@ -3,6 +3,14 @@ from functools import partial
 from aiolambda.functools import _iscoroutinefunction_or_partial, compose, bind
 
 
+async def async_sum(x: int, y: int) -> int:
+    return x + y
+
+
+def _sum(x: int, y: int) -> int:
+    return x + y
+
+
 def test_iscoroutinefunction_or_partial():
     async def foo(boo, woo):
         return (boo, woo)
@@ -61,32 +69,37 @@ def test_bind():
     maybe_x5 = bind(x5)
     assert maybe_x5(1) == 5
 
-    exception = maybe_x5(Exception())
-    assert isinstance(exception, Exception)
-    assert not isinstance(exception, int)
+    error = maybe_x5(Exception())
+    assert isinstance(error, Exception)
+    assert not isinstance(error, int)
 
 
 def test_bind_curry():
-    def _sum(x: int, y: int) -> int:
-        return x + y
-
     maybe_sum = bind(_sum)
     maybe_sum1 = maybe_sum(1)
     assert maybe_sum1(4) == 5
 
-    exception = maybe_sum1(Exception())
-    assert isinstance(exception, Exception)
-    assert not isinstance(exception, int)
+    error = maybe_sum1(Exception())
+    assert isinstance(error, Exception)
+    assert not isinstance(error, int)
 
 
 async def test_bind_async():
-    async def _sum(x: int, y: int) -> int:
-        return x + y
-
-    maybe_sum = bind(_sum)
+    maybe_sum = bind(async_sum)
     maybe_sum1 = maybe_sum(1)
     assert await maybe_sum1(5) == 6
 
-    exception = maybe_sum(Exception())
-    assert isinstance(exception, Exception)
-    assert not isinstance(exception, int)
+    error = await maybe_sum(Exception())
+    assert isinstance(error, Exception)
+    assert not isinstance(error, int)
+
+
+async def test_compose_with_bind_error():
+    maybe_sum = bind(async_sum)
+
+    async def return_error(x: int):
+        return Exception()
+
+    assert await compose(maybe_sum(1), maybe_sum(2))(3) == 6
+    assert isinstance(await compose(maybe_sum(1), maybe_sum(2))(Exception()), Exception)
+    assert isinstance(await compose(return_error, maybe_sum(1))(3), Exception)
