@@ -1,3 +1,9 @@
+# 0.2.21
+
+- Fix/bind error async (#58)
+- Fix: write all commits to CHANGELOG, not just last one (#57)
+- Update changelog
+
 # 0.2.20
 
 - Refactor/pass pool to db functions (#56)
