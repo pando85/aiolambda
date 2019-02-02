@@ -1,7 +1,7 @@
+from aiofunctools import compose
 from pathlib import Path
 from toolz import curry
 
-from aiolambda.functools import compose
 
 MARKER_PROJECT_NAME = '__PROJECT_NAME__'
 

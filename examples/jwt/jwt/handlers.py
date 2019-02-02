@@ -1,7 +1,7 @@
+from aiofunctools import compose
 from aiohttp.web import Response
 
 from aiolambda import logger
-from aiolambda.functools import compose
 
 from jwt.response import return_200
 from jwt.jwt import generate_token
