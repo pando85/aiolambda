@@ -1,9 +1,9 @@
 import inspect
 
+from aiofunctools import compose
 from toolz import curry
 
 import aiolambda.errors
-from aiolambda.functools import compose
 
 
 def test_all_errors_are_exceptions():
