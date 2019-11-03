@@ -1,3 +1,11 @@
+# 0.3.1
+
+- Update requirements.txt
+
+# 0.3.0
+
+- Refactor/decouple functools (#61)
+
 # 0.2.21
 
 - Fix/bind error async (#58)
