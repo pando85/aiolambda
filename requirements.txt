@@ -1,8 +1,8 @@
-aiofunctools==0.0.2
+aiofunctools==0.0.3
 asyncpg==0.19.0
 cchardet==2.1.4
 passlib==1.7.1
-uvloop==0.13.0
+uvloop==0.14.0
 aio-pika==6.3.0
 docopt==0.6.2
 Jinja2==2.10.3
