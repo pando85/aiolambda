@@ -25,7 +25,7 @@ update_requirements(){
     do
         package_name=$(echo $i | cut -d'[' -f1 | cut -d= -f1)
         version=$($PIP freeze --local | egrep "^${package_name}" | grep ${package_name}= | cut -d= -f3);
-        echo "$(echo $i | cut -d= -f1)==${version}" >> $temp_file;
+        echo "$(echo $i | cut -d= -f1)>=${version}" >> $temp_file;
     done;
     cp $temp_file $requirements_file;
 };
